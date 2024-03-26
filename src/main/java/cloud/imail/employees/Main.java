@@ -1,5 +1,6 @@
 package cloud.imail.employees;
 
+import java.text.NumberFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,12 +13,21 @@ public class Main {
             Rubble, Betty, 4/4/1915, CEO
             """;
 
-        String regex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*\\n";
+        String regex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)\\n";
         Pattern pat = Pattern.compile(regex);
         Matcher mat = pat.matcher(people);
-
+        
+        int totalSalaries = 0;
         while (mat.find()) {
-            System.out.printf("%s %s %s%n", mat.group("firstName"), mat.group("lastName"), mat.group("dob"));
+            totalSalaries+= switch (mat.group("role")) {
+                case "Programmer" -> 3000;
+                case "Manager" -> 3500;
+                case "Analyst" -> 2500;
+                case "CEO" -> 5000;
+                default -> 0;
+            };
         }
+        NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
+        System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
     }
 }
