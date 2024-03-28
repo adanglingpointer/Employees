@@ -26,7 +26,7 @@ public class Main {
             """;
 
         String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
-        Pattern peoplePat = Pattern.compile(regex);
+        Pattern peoplePat = Pattern.compile(peopleRegex);
         Matcher peopleMat = peoplePat.matcher(peopleText);
 
         String progRegex = "\\w+=(?<locpd>\\w),\\w+=(?<yoe>\\w),\\w+=(?<iq>\\w)";
@@ -56,7 +56,7 @@ public class Main {
                     yield ceo.getSalary();
                 }
                 default -> 0;
-            }
+            };
         }
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();

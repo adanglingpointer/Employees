@@ -12,12 +12,13 @@ public class Analyst {
     private LocalDate dob;
     private int projectCount = 0;
 
+    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
+    private final Pattern peoplePat = Pattern.compile(peopleRegex);
     private final String analystRegex = "\\w+=(?<projectCount>\\w+)";
     private final Pattern analystPat = Pattern.compile(analystRegex);
-    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)\\n";
-    private final Pattern peoplePat = Pattern.compile(peopleRegex);
-    private final DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+
     private final NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
+    private final DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
     public Analyst(String personText) {
         Matcher peopleMat = peoplePat.matcher(personText);
@@ -27,7 +28,7 @@ public class Analyst {
             this.dob = LocalDate.from(dtFormatter.parse(peopleMat.group("dob")));
             Matcher analystMat = analystPat.matcher(peopleMat.group("details"));
             if (analystMat.find()) {
-                this.projectCount = Integer.parseInt(analystMat.group("projectCount"))
+                this.projectCount = Integer.parseInt(analystMat.group("projectCount"));
             }
         }
     }
