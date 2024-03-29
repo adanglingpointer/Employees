@@ -16,7 +16,7 @@ public class Programmer {
 
     private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
     private final Pattern peoplePat = Pattern.compile(peopleRegex);
-    private final String progRegex = "\\w+=(?<locpd>\\w),\\w+=(?<yoe>\\w),\\w+=(?<iq>\\w)";
+    private final String progRegex = "\\w+=(?<locpd>\\w+),\\w+=(?<yoe>\\w+),\\w+=(?<iq>\\w+)";
     private final Pattern progPat = Pattern.compile(progRegex);
     private final NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
 
