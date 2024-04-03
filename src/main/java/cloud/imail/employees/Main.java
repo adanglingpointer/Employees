@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         String peopleText = """
             Flinstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+            Flinstone, Fred, 1/1/1900, Programmerz, {locpd=2000,yoe=10,iq=140}
             Flinstone2, Fred, 1/1/1900, Programmer, {locpd=1300,yoe=14,iq=100}
             Flinstone3, Fred, 1/1/1900, Programmer, {locpd=2300,yoe=8,iq=105}
             Flinstone4, Fred, 1/1/1900, Programmer, {locpd=1630,yoe=3,iq=115}
@@ -29,9 +30,6 @@ public class Main {
         Pattern peoplePat = Pattern.compile(peopleRegex);
         Matcher peopleMat = peoplePat.matcher(peopleText);
 
-        String progRegex = "\\w+=(?<locpd>\\w),\\w+=(?<yoe>\\w),\\w+=(?<iq>\\w)";
-        Pattern coderPat = Pattern.compile(progRegex);
-        
         int totalSalaries = 0;
         Employee employee = null;
         while (peopleMat.find()) {
@@ -42,8 +40,10 @@ public class Main {
                 case "CEO" -> new CEO(peopleMat.group());
                 default -> null;
             };
-            System.out.println(employee.toString());
-            totalSalaries+= employee.getSalary();
+            if (employee != null) {
+                System.out.println(employee.toString());
+                totalSalaries+= employee.getSalary();
+            }
         }
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
