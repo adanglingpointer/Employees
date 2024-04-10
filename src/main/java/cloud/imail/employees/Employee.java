@@ -18,9 +18,12 @@ public abstract class Employee {
 
     protected Employee() {
         peopleMat = null;
+        lastName = "N/A";
+        firstName = "N/A";
+        dob = null;
     }
 
-    public Employee(String personText) {
+    protected Employee(String personText) {
         peopleMat = Employee.PEOPLE_PAT.matcher(personText);
         if (peopleMat.find()) {
             this.lastName = peopleMat.group("lastName");
@@ -39,10 +42,16 @@ public abstract class Employee {
                 case "Manager" -> new Manager(employeeText);
                 case "Analyst" -> new Analyst(employeeText);
                 case "CEO" -> new CEO(employeeText);
-                default -> null;
+                default -> new Employee() {
+
+                    @Override
+                    public int getSalary() {
+                        return 0;
+                    }
+                };
             };
         } else {
-            return null;
+            return new DummyEmployee();
         }
     }
 
