@@ -72,4 +72,6 @@ public abstract class Employee {
             return 0;
         }
     }
+
+    public record Jumper(String firstName, String lastName){}
 }
