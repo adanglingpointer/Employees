@@ -1,7 +1,6 @@
 package cloud.imail.employees;
 
 import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.util.regex.Matcher;
 
 public class Main {
@@ -29,7 +28,7 @@ public class Main {
         Matcher peopleMat = Employee.PEOPLE_PAT.matcher(peopleText);
 
         int totalSalaries = 0;
-        Employee employee = null;
+        IEmployee employee = null;
         while (peopleMat.find()) {
                 employee = Employee.createEmployee(peopleMat.group());
                 System.out.println(employee.toString());
@@ -39,10 +38,6 @@ public class Main {
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
 
-        Weirdo larry = new Weirdo("David", "Larry", LocalDate.of(1950, 1, 1));
-        System.out.println(larry.firstName());
 
-        Weirdo jake = new Weirdo("Snake", "Jake");
-        jake.sayHello();
     }
 }

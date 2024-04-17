@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Employee {
+public abstract class Employee implements IEmployee {
     protected final DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
     protected final NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
     private static final String PEOPLE_REGEX = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
@@ -33,7 +33,7 @@ public abstract class Employee {
     }
 
     // Flinstone5, Wilma, 3/3/1910, Analyst, {projectCount=9}
-    public static final Employee createEmployee(String employeeText) {
+    public static final IEmployee createEmployee(String employeeText) {
         Matcher peopleMat = Employee.PEOPLE_PAT.matcher(employeeText);
 
         if (peopleMat.find()) {
@@ -42,16 +42,10 @@ public abstract class Employee {
                 case "Manager" -> new Manager(employeeText);
                 case "Analyst" -> new Analyst(employeeText);
                 case "CEO" -> new CEO(employeeText);
-                default -> new Employee() {
-
-                    @Override
-                    public int getSalary() {
-                        return 0;
-                    }
-                };
+                default -> () -> 0;
             };
         } else {
-            return new DummyEmployee();
+            return () -> 0;
         }
     }
 
@@ -66,7 +60,7 @@ public abstract class Employee {
         return String.format("%s, %s: %s - %s", lastName, firstName, moneyFormat.format(getSalary()), moneyFormat.format(getBonus()));
     }
 
-    private static final class DummyEmployee extends Employee {
+    private static final class DummyEmployee extends Employee implements IEmployee {
         @Override
         public int getSalary() {
             return 0;
