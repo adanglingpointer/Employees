@@ -27,6 +27,12 @@ public class Main {
 
         Matcher peopleMat = Employee.PEOPLE_PAT.matcher(peopleText);
 
+        Flyer flyer = new CEO("");
+        flyer.fly();
+
+        Programmer coder = new Programmer("");
+        coder.cook("Hamburger");
+
         int totalSalaries = 0;
         IEmployee employee = null;
         while (peopleMat.find()) {

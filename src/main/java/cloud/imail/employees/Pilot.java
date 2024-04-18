@@ -1,6 +1,6 @@
 package cloud.imail.employees;
 
-public class Pilot {
+public class Pilot implements Flyer {
     private int hoursFlown = 0;
     private boolean ifr = false;
 
@@ -9,22 +9,27 @@ public class Pilot {
         this.ifr = ifr;
     }
 
+    @Override
     public void fly() {
         System.out.println("Prepare for takeoff!");
     }
 
+    @Override
     public int getHoursFlown() {
         return hoursFlown;
     }
 
+    @Override
     public void setHoursFlown(int hoursFlown) {
         this.hoursFlown = hoursFlown;
     }
 
+    @Override
     public boolean isIfr() {
         return ifr;
     }
 
+    @Override
     public void setIfr(boolean ifr) {
         this.ifr = ifr;
     }
