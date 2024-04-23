@@ -21,6 +21,4 @@ public interface Chef {
 //        this.favoriteFood = favoriteFood;
 //    }
 
-
-
 }

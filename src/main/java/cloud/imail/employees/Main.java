@@ -37,6 +37,17 @@ public class Main {
         IEmployee employee = null;
         while (peopleMat.find()) {
                 employee = Employee.createEmployee(peopleMat.group());
+                if (employee instanceof Programmer) {
+                    System.out.println(((Programmer) employee).getIq());
+                } else if (employee instanceof Manager) {
+                    System.out.println();
+                } else if (employee instanceof Analyst) {
+                    System.out.println();
+                } else if (employee instanceof CEO) {
+                    System.out.println();
+                } else {
+                    System.out.println("Default output");
+                }
                 System.out.println(employee.toString());
                 totalSalaries+= employee.getSalary();
         }
